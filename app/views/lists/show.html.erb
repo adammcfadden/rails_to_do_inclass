@@ -1,0 +1,38 @@
+<% content_for(:title, "List | To Do") %>
+
+
+<h1 class="page-header text-center"><%= @list.name %></h1>
+
+<h4>Description: <%= @list.description %></h4>
+
+<% if @list.tasks.any? %>
+  <h4>Tasks associated with this list:</h4>
+  <ul>
+    <% @list.tasks.each do |task| %>
+      <li>
+        <%= task.description %>
+        <%= link_to "Edit", edit_list_task_path(@list, task) %>
+        <%= link_to "Delete", list_task_path(@list, task),
+                                data: {confirm: "YOU SURE DAWG?", method: "delete" } %>
+      </li>
+    <% end %>
+  </ul>
+  <% else %>
+  <p>
+    YAR! There be no tasks here.
+  </p>
+<% end %>
+
+<p>
+  <%= link_to "Add a New Task", new_list_task_path(@list) %>
+</p>
+<p>
+  <%= link_to "Edit", edit_list_path(@list) %>
+</p>
+
+<p>
+  <%= link_to "Delete", list_path(@list),
+                        :data => {:confirm => "YOU SURE DAWG?",
+                                  :method => "delete"} %>
+</p>
+<p><%= link_to "Return to lists", lists_path %></p>
