@@ -14,14 +14,22 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+    @list = List.find(params[:list_id])
+    @task = Task.find(params[:id])
+    render :edit
+  end
+
+
   def update
     @list = List.find(params[:list_id])
     @task = Task.find(params[:id])
-    if @task.update(isDone: params[:isDone]) || @task.update(task_params)
-      redirect_to list_path(@list)
+    if params[:isDone]
+      @task.update(isDone: params[:isDone])
     else
-      render :new
+      @task.update(task_params)
     end
+    redirect_to list_path(@list)
   end
 
   def destroy
