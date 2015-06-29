@@ -15,6 +15,7 @@ class ListsController < ApplicationController
   end
 
   def create
+  binding.pry
     @list = List.new(list_params)
     if @list.save
       redirect_to lists_path
@@ -42,7 +43,7 @@ class ListsController < ApplicationController
     @list.destroy
     redirect_to lists_path
   end
-  
+
   private
   def list_params
     params.require(:list).permit(:name, :description)
